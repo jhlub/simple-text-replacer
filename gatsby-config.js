@@ -1,8 +1,8 @@
 module.exports = {
 	siteMetadata: {
-		title: `Gatsby Starter TypeScript`,
-		description: `TypeScript version of the default Gatsby starter`,
-		author: `@jongwooo`
+		title: `Simple Text Replacer`,
+		description: `Replace elements in text.`,
+		author: `@jhlub`
 	},
 	plugins: [
 		`gatsby-plugin-eslint`,
@@ -28,9 +28,10 @@ module.exports = {
 				display: `minimal-ui`,
 				icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
 			}
-		}
+		},
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
+		"gatsby-plugin-postcss"
 	]
 };

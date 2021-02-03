@@ -1,0 +1,136 @@
+.option-box {
+	label {
+		display: block;
+		position: relative;
+		padding-left: 30px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		input[type='checkbox'] {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			top: 5px;
+			left: 5px;
+		}
+
+		.checkbox-text {
+			@apply text-sm inline-block p-0 mb-2;
+		}
+
+		.checkbox-icon-box {
+			position: absolute;
+			display: block;
+			top: 0;
+			left: 0;
+			height: 100%;
+			z-index: 1;
+
+			&::before,
+			&::after {
+				position: absolute;
+				display: block;
+				content: '';
+			}
+
+			&::before {
+				@apply border-2 border-main-secondary bg-white;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				top: 2px;
+				left: 0;
+			}
+
+			&::after {
+				@apply bg-main-secondary;
+				width: 10px;
+				height: 10px;
+				top: 8px;
+				left: 6px;
+				border-radius: 50%;
+				opacity: 0;
+				transition: opacity 0.3s;
+			}
+		}
+
+		&:hover .checkbox-icon-box::after {
+			opacity: 0.5;
+		}
+
+		input[type='checkbox']:checked + .checkbox-icon-box::after {
+			opacity: 1;
+		}
+	}
+}
+
+.option-box-v2 {
+	label {
+		display: block;
+		position: relative;
+		padding-right: 55px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		input[type='checkbox'] {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			top: calc(50% - 5px);
+			right: 5px;
+		}
+
+		.checkbox-text {
+			@apply text-lg font-bold inline-block p-0 mb-2;
+		}
+
+		.checkbox-icon-box {
+			position: absolute;
+			display: block;
+			top: 0;
+			right: 0;
+			height: 100%;
+			z-index: 1;
+
+			&::before,
+			&::after {
+				position: absolute;
+				display: block;
+				content: '';
+			}
+
+			&::before {
+				@apply border-2 border-main-secondary rounded bg-white;
+				width: 40px;
+				height: 40px;
+				top: calc(50% - 20px);
+				right: 0;
+			}
+
+			&::after {
+				@apply border-main-secondary;
+				top: calc(50% - 15px);
+				right: 14px;
+				width: 10px;
+				height: 25px;
+				border-width: 0 5px 5px 0;
+				border-style: solid;
+				transform: rotate(45deg);
+				opacity: 0;
+				transition: opacity 0.3s;
+			}
+		}
+
+		&:hover .checkbox-icon-box::after {
+			opacity: 0.5;
+		}
+
+		input[type='checkbox']:checked + .checkbox-icon-box::after {
+			opacity: 1;
+		}
+	}
+}

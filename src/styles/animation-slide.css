@@ -1,0 +1,8 @@
+.animation-slide {
+	transform: translateY(0);
+	transition: transform 0.3s;
+
+	&.animation-slide-up {
+		transform: translateY(-1000px);
+	}
+}

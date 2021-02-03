@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind styles;
+
+@layer base {
+	@import './fonts.css';
+}
+
+@import './standards.css';
+@import './buttons.css';
+@import './TextReplacer/main.css';
+@import './animation-slide.css';
