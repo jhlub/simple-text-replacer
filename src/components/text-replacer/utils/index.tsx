@@ -1,5 +1,21 @@
 import { ConfigSourceType, FilterConfType } from '../types';
 
+export const getReplacerFieldValue = (
+	replacerId: number,
+	fieldName: keyof FilterConfType,
+	replacers: FilterConfType[]
+): RegExp | string | boolean | number | undefined => {
+	let value = undefined;
+	for (let i = 0; i < replacers.length; i++) {
+		if (replacers[i].id === replacerId) {
+			value = replacers[i][fieldName];
+			break;
+		}
+	}
+
+	return value;
+};
+
 export const getConfigActiveField = (
 	confName: string,
 	filtersConf: FilterConfType[]

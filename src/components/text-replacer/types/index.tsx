@@ -11,5 +11,4 @@ export type FilterConfType = {
 	from: RegExp | string;
 	to: string;
 	active: boolean;
-	replaceIndex?: number;
 };

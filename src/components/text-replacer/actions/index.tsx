@@ -1,4 +1,4 @@
-import { FilterConfType } from '../types';
+import { ConfigSourceType, FilterConfType } from '../types';
 
 export const applyFilterOnText = (
 	inputText: string,
@@ -17,7 +17,14 @@ export const applyFilterOnText = (
 				modifiedText = modifiedText.replace(filterConf.from, filterConf.to);
 			}
 			if (filterConf.from instanceof RegExp) {
-				const replaceIndex = filterConf.replaceIndex ?? 0;
+				let replaceIndex = 0;
+				// Hardcoded changes!
+				if (
+					filterConf.source === ConfigSourceType.Standard &&
+					filterConf.name === 'ndash'
+				) {
+					replaceIndex = 1;
+				}
 				modifiedText =
 					modifiedText.substr(0, index) +
 					filterConf.to +

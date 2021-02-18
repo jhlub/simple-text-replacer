@@ -6,7 +6,7 @@ export const standardFilters: FilterConfType[] = [
 		name: 'nbsp',
 		description: 'Add &nbsp;',
 		source: ConfigSourceType.Standard,
-		from: /(\s(\w)\s)/, // prettier-ignore // TODO Prob can be removed
+		from: /(\s(\w)\s)/,
 		to: '&nbsp;',
 		active: true,
 	},
@@ -15,9 +15,8 @@ export const standardFilters: FilterConfType[] = [
 		name: 'ndash',
 		description: 'Add &ndash;',
 		source: ConfigSourceType.Standard,
-		from: /(\s(-)\s)/, // prettier-ignore // TODO Prob can be removed
+		from: /(\s(-)\s)/,
 		to: ' &ndash; ',
 		active: true,
-		replaceIndex: 1,
 	},
 ];

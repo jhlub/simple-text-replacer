@@ -2,13 +2,14 @@
 import * as React from 'react';
 
 import { Layout } from '../components/layout';
-import { TextReplacer } from '../components/text-replacer/TextReplacer';
+
 import SEO from '../components/seo';
+import { TextReplacerComplex } from '../components/text-replacer/TextReplacerComplex';
 
 const IndexPage: React.FC = () => (
 	<Layout>
 		<SEO title="Home" />
-		<TextReplacer />
+		<TextReplacerComplex />
 	</Layout>
 );
 

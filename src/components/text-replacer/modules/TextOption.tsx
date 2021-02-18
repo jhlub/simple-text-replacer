@@ -1,44 +1,25 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useContext } from 'react';
 
 import { OptionBox } from './elements/OptionBox';
 import { OptionBoxCustomContainer } from './elements/OptionBoxCustomContainer';
+import { TextReplacerContext } from '../context/textReplacerContext';
 
-import { FilterConfType } from '../types';
+export const TextOptions: React.FC = () => {
+	const {
+		standardReplacers,
+		autoProcessText,
+		setAutoProcessText,
+		autoCopyText,
+		setAutoCopyText,
+		processText,
+		copyProcessedText,
+	} = useContext(TextReplacerContext)!;
 
-type PropsType = {
-	filtersConf: FilterConfType[];
-	setFiltersConf: React.Dispatch<SetStateAction<FilterConfType[]>>;
-	onClickProcessText(): void;
-	onClickCopyText(): void;
-	autoProcess: boolean;
-	setAutoProcess: React.Dispatch<SetStateAction<boolean>>;
-	autoCopy: boolean;
-	setAutoCopy: React.Dispatch<SetStateAction<boolean>>;
-};
-
-export const TextOptions: React.FC<PropsType> = ({
-	filtersConf,
-	setFiltersConf,
-	onClickProcessText,
-	onClickCopyText,
-	autoProcess,
-	setAutoProcess,
-	autoCopy,
-	setAutoCopy,
-}) => {
 	const renderOptionBoxes = (): JSX.Element[] => {
 		const optionBoxes: JSX.Element[] = [];
 
-		filtersConf.forEach(({ id, name, description }) => {
-			optionBoxes.push(
-				<OptionBox
-					key={id}
-					filterName={name}
-					filtersConf={filtersConf}
-					setFiltersConf={setFiltersConf}
-					optionTitle={description}
-				/>
-			);
+		standardReplacers.forEach(({ id }) => {
+			optionBoxes.push(<OptionBox key={id} filterId={id} />);
 		});
 
 		return optionBoxes;
@@ -50,17 +31,17 @@ export const TextOptions: React.FC<PropsType> = ({
 			<div className="grid grid-cols-1 lg:grid-cols-2">
 				<div className="justify-start">
 					{renderOptionBoxes()}
-					<OptionBoxCustomContainer
-						filtersConf={filtersConf}
-						setFiltersConf={setFiltersConf}
-					/>
+					<OptionBoxCustomContainer />
 				</div>
 
 				<div className="grid lg:justify-self-end content-start">
-					<button className="btn-st1" onClick={onClickProcessText}>
+					<button className="btn-st1" onClick={() => processText()}>
 						Process text
 					</button>
-					<button className="btn-st1 text-xs" onClick={onClickCopyText}>
+					<button
+						className="btn-st1 text-xs"
+						onClick={() => copyProcessedText()}
+					>
 						Copy processed text
 						<br />
 						to clipboard
@@ -74,8 +55,8 @@ export const TextOptions: React.FC<PropsType> = ({
 							</p>
 							<input
 								type="checkbox"
-								checked={autoProcess}
-								onChange={() => setAutoProcess(!autoProcess)}
+								checked={autoProcessText}
+								onChange={() => setAutoProcessText(!autoProcessText)}
 							/>
 							<div className="checkbox-icon-box"></div>
 						</label>
@@ -89,8 +70,8 @@ export const TextOptions: React.FC<PropsType> = ({
 							</p>
 							<input
 								type="checkbox"
-								checked={autoCopy}
-								onChange={() => setAutoCopy(!autoCopy)}
+								checked={autoCopyText}
+								onChange={() => setAutoCopyText(!autoCopyText)}
 							/>
 							<div className="checkbox-icon-box"></div>
 						</label>
