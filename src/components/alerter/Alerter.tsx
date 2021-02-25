@@ -1,23 +1,23 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef, useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+
+import { setShowCopyToClipboardAlertAction } from '../text-replacer/context/actions';
+import { TextReplacerContext } from '../text-replacer/context/TextReplacerContext';
 
 import { AlerterContent } from './AlerterContent';
 
 type PropsType = {
 	title: string;
-	showAlerter: boolean;
-	setShowAlerter: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Alerter: React.FC<PropsType> = ({
-	title,
-	showAlerter,
-	setShowAlerter,
-}) => {
+export const Alerter: React.FC<PropsType> = ({ title }) => {
+	const {
+		state: { showCopyToClipboardAlert },
+		dispatch: textReplacerContextDispatch,
+	} = useContext(TextReplacerContext)!;
 	const alertElement = createRef<HTMLDivElement>();
 
 	useEffect(() => {
-		console.log('Alert: ' + showAlerter);
 		if (alertElement.current?.classList.contains('animation-slide-up')) {
 			alertElement.current?.classList.remove('animation-slide-up');
 		}
@@ -25,13 +25,13 @@ export const Alerter: React.FC<PropsType> = ({
 		setTimeout(() => {
 			alertElement.current?.classList.add('animation-slide-up');
 			setTimeout(() => {
-				setShowAlerter(false);
+				textReplacerContextDispatch(setShowCopyToClipboardAlertAction(false));
 				alertElement.current?.remove();
 			}, 50);
 		}, 1000);
-	}, [showAlerter]);
+	}, [showCopyToClipboardAlert]);
 
-	if (!showAlerter) return null;
+	if (!showCopyToClipboardAlert) return null;
 
 	return createPortal(
 		<div className="absolute flex justify-center items-start top-0 left-0 w-full h-full z-40">

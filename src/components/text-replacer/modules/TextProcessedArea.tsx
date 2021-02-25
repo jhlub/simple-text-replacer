@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
-import { TextReplacerContext } from '../context/textReplacerContext';
+
+import { TextReplacerContext } from '../context/TextReplacerContext';
 
 export const TextProcessedArea: React.FC = () => {
-	const { processedText } = useContext(TextReplacerContext)!;
+	const {
+		state: { processedText },
+	} = useContext(TextReplacerContext)!;
 
 	return (
 		<div className="border-t-4 border-gray-500 pt-4">

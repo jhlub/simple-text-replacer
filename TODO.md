@@ -9,11 +9,11 @@ Things which needs to be done:
 - [ ] Tests for Layout
 - [ ] Continous Integration (Travis?)
 - [ ] Continous Development (??)
-- [ ] Refactor ContextAPI ?
+- [x] Refactor ContextAPI ?
 
 Rewrite:
 
-- [ ] Refactor Standard - dispatch, actions, types
-- [ ] Refactor Custom - types
-- [ ] Refactor Custom - actions
-- [ ] Refactor Utils?
+- [x] Refactor Standard - dispatch, actions, types
+- [x] Refactor Custom - types
+- [x] Refactor Custom - actions
+- [x] Refactor Utils?

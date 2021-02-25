@@ -1,12 +1,13 @@
 import React, { useEffect, useContext } from 'react';
-import { TextReplacerContext } from '../context/textReplacerContext';
+
+import { userInputTextChangeAction } from '../context/actions';
+import { TextReplacerContext } from '../context/TextReplacerContext';
 
 export const TextInputArea: React.FC = () => {
 	const {
-		userInputText,
+		state: { userInputText, autoProcessText },
+		dispatch: textReplacerContextDispatch,
 		processText,
-		autoProcessText,
-		setUserInputText,
 	} = useContext(TextReplacerContext)!;
 
 	useEffect(() => {
@@ -27,7 +28,9 @@ export const TextInputArea: React.FC = () => {
 				<p className="text-sm italic p-0 m-0">Text area:</p>
 				<textarea
 					onChange={event => {
-						setUserInputText(event.target.value);
+						textReplacerContextDispatch(
+							userInputTextChangeAction(event.target.value)
+						);
 					}}
 					className="w-full bg-white border border-black rounded p-4"
 				></textarea>

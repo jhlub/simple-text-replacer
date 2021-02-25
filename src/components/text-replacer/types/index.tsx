@@ -1,13 +1,13 @@
-export enum ConfigSourceType {
+export enum ReplacerConfigSourceType {
 	Standard,
 	Custom,
 }
 
-export type FilterConfType = {
+export type ReplacerConfigType = {
 	id: number;
 	name: string;
 	description: string;
-	source: ConfigSourceType;
+	source: ReplacerConfigSourceType;
 	from: RegExp | string;
 	to: string;
 	active: boolean;

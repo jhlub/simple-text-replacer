@@ -1,46 +1,33 @@
-import React, { createRef, RefObject, useCallback, useContext } from 'react';
-import { TextReplacerContext } from '../../context/textReplacerContext';
-import { ConfigSourceType } from '../../types';
+import React, { useContext } from 'react';
 
+import { TextReplacerContext } from '../../context/TextReplacerContext';
+import { ReplacerConfigType } from '../../types';
 import {
-	CUSTOM_REPLACER_CHANGE_ACTIVE,
-	CUSTOM_REPLACER_REMOVE,
-	CUSTOM_REPLACER_CHANGE_DATA,
-} from '../../actions/types';
+	customReplacerChangeActiveAction,
+	customReplacerChangeDataAction,
+	customReplacerRemoveAction,
+} from '../../context/actions';
 
 type PropsType = {
-	replacerId: number;
+	filterObject: ReplacerConfigType;
 };
 
-export const OptionBoxCustom: React.FC<PropsType> = ({ replacerId }) => {
-	const { getReplacerFieldValue, customReplacersDispatch } = useContext(
+export const OptionBoxCustom: React.FC<PropsType> = ({ filterObject }) => {
+	const { dispatch: textReplacerContextDispatch } = useContext(
 		TextReplacerContext
 	)!;
 
 	return (
 		<div className="option-box option-box-custom">
 			<label>
-				<p className="checkbox-text">
-					{getReplacerFieldValue(
-						replacerId,
-						'description',
-						ConfigSourceType.Custom
-					)}
-				</p>
+				<p className="checkbox-text">{filterObject.description}</p>
 				<input
 					type="checkbox"
-					checked={
-						!!getReplacerFieldValue(
-							replacerId,
-							'active',
-							ConfigSourceType.Custom
-						)
-					}
+					checked={filterObject.active}
 					onChange={() =>
-						customReplacersDispatch({
-							type: CUSTOM_REPLACER_CHANGE_ACTIVE,
-							id: replacerId,
-						})
+						textReplacerContextDispatch(
+							customReplacerChangeActiveAction(filterObject.id)
+						)
 					}
 				/>
 				<div className="checkbox-icon-box"></div>
@@ -48,10 +35,9 @@ export const OptionBoxCustom: React.FC<PropsType> = ({ replacerId }) => {
 			<div
 				className="remove-icon"
 				onClick={() =>
-					customReplacersDispatch({
-						type: CUSTOM_REPLACER_REMOVE,
-						id: replacerId,
-					})
+					textReplacerContextDispatch(
+						customReplacerRemoveAction(filterObject.id)
+					)
 				}
 			></div>
 			<div className="custom-config-box">
@@ -61,20 +47,15 @@ export const OptionBoxCustom: React.FC<PropsType> = ({ replacerId }) => {
 						<input
 							className="custom-config-input"
 							type="text"
-							value={
-								getReplacerFieldValue(
-									replacerId,
-									'from',
-									ConfigSourceType.Custom
-								) as string
-							}
+							value={filterObject.from as string}
 							onChange={e =>
-								customReplacersDispatch({
-									type: CUSTOM_REPLACER_CHANGE_DATA,
-									id: replacerId,
-									fieldName: 'from',
-									fieldValue: e.target.value,
-								})
+								textReplacerContextDispatch(
+									customReplacerChangeDataAction({
+										id: filterObject.id,
+										fieldName: 'from',
+										fieldValue: e.target.value,
+									})
+								)
 							}
 						/>
 					</label>
@@ -85,20 +66,15 @@ export const OptionBoxCustom: React.FC<PropsType> = ({ replacerId }) => {
 						<input
 							className="custom-config-input"
 							type="text"
-							value={
-								getReplacerFieldValue(
-									replacerId,
-									'to',
-									ConfigSourceType.Custom
-								) as string
-							}
+							value={filterObject.to as string}
 							onChange={e =>
-								customReplacersDispatch({
-									type: CUSTOM_REPLACER_CHANGE_DATA,
-									id: replacerId,
-									fieldName: 'to',
-									fieldValue: e.target.value,
-								})
+								textReplacerContextDispatch(
+									customReplacerChangeDataAction({
+										id: filterObject.id,
+										fieldName: 'to',
+										fieldValue: e.target.value,
+									})
+								)
 							}
 						/>
 					</label>

@@ -1,16 +1,18 @@
-import React, { SetStateAction, useContext } from 'react';
+import React, { useContext } from 'react';
+
+import { TextReplacerContext } from '../context/TextReplacerContext';
+import {
+	autoCopyTextChangeActiveAction,
+	autoProcessTextChangeActiveAction,
+} from '../context/actions';
 
 import { OptionBox } from './elements/OptionBox';
 import { OptionBoxCustomContainer } from './elements/OptionBoxCustomContainer';
-import { TextReplacerContext } from '../context/textReplacerContext';
 
 export const TextOptions: React.FC = () => {
 	const {
-		standardReplacers,
-		autoProcessText,
-		setAutoProcessText,
-		autoCopyText,
-		setAutoCopyText,
+		state: { standardReplacers, processedText, autoCopyText, autoProcessText },
+		dispatch: textReplacerContextDispatch,
 		processText,
 		copyProcessedText,
 	} = useContext(TextReplacerContext)!;
@@ -18,8 +20,10 @@ export const TextOptions: React.FC = () => {
 	const renderOptionBoxes = (): JSX.Element[] => {
 		const optionBoxes: JSX.Element[] = [];
 
-		standardReplacers.forEach(({ id }) => {
-			optionBoxes.push(<OptionBox key={id} filterId={id} />);
+		standardReplacers.forEach(filterObject => {
+			optionBoxes.push(
+				<OptionBox key={filterObject.id} filterObject={filterObject} />
+			);
 		});
 
 		return optionBoxes;
@@ -56,7 +60,11 @@ export const TextOptions: React.FC = () => {
 							<input
 								type="checkbox"
 								checked={autoProcessText}
-								onChange={() => setAutoProcessText(!autoProcessText)}
+								onChange={() =>
+									textReplacerContextDispatch(
+										autoProcessTextChangeActiveAction()
+									)
+								}
 							/>
 							<div className="checkbox-icon-box"></div>
 						</label>
@@ -64,14 +72,16 @@ export const TextOptions: React.FC = () => {
 					<div className="option-box-v2">
 						<label>
 							<p className="checkbox-text">
-								Copy to clipboard
+								Copy processed text
 								<br />
-								after process:
+								to clipboard after process:
 							</p>
 							<input
 								type="checkbox"
 								checked={autoCopyText}
-								onChange={() => setAutoCopyText(!autoCopyText)}
+								onChange={() =>
+									textReplacerContextDispatch(autoCopyTextChangeActiveAction())
+								}
 							/>
 							<div className="checkbox-icon-box"></div>
 						</label>

@@ -1,44 +1,29 @@
 import React, { useContext } from 'react';
 
-import { TextReplacerContext } from '../../context/textReplacerContext';
-import { ConfigSourceType } from '../../types';
-import { STANDARD_REPLACER_CHANGE_ACTIVE } from '../../actions/types';
+import { TextReplacerContext } from '../../context/TextReplacerContext';
+import { ReplacerConfigType } from '../../types';
+import { standardReplacerChangeActiveAction } from '../../context/actions';
 
 type PropsType = {
-	filterId: number;
+	filterObject: ReplacerConfigType;
 };
 
-export const OptionBox: React.FC<PropsType> = ({ filterId }) => {
-	const { getReplacerFieldValue, standardReplacersDispatch } = useContext(
+export const OptionBox: React.FC<PropsType> = ({ filterObject }) => {
+	const { dispatch: textReplacerContextDispatch } = useContext(
 		TextReplacerContext
 	)!;
 
 	return (
 		<div className="option-box">
 			<label>
-				<p className="checkbox-text">
-					{getReplacerFieldValue(
-						filterId,
-						'description',
-						ConfigSourceType.Standard
-					)}
-				</p>
+				<p className="checkbox-text">{filterObject.description}</p>
 				<input
 					type="checkbox"
-					checked={
-						!!getReplacerFieldValue(
-							filterId,
-							'active',
-							ConfigSourceType.Standard
+					checked={filterObject.active}
+					onChange={() =>
+						textReplacerContextDispatch(
+							standardReplacerChangeActiveAction(filterObject.id)
 						)
-					}
-					onChange={
-						() =>
-							standardReplacersDispatch({
-								type: STANDARD_REPLACER_CHANGE_ACTIVE,
-								id: filterId,
-							})
-						// toggleReplacerActive(filterId, ConfigSourceType.Standard)
 					}
 				/>
 				<div className="checkbox-icon-box"></div>
