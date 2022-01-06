@@ -36,16 +36,15 @@ export function textReplacerReducer(
 		case AUTO_COPY_TEXT_CHANGE_ACTIVE:
 			return { ...state, autoCopyText: !state.autoCopyText };
 
-		case USER_INPUT_TEXT_CHANGE:
+		case USER_INPUT_TEXT_CHANGE: {
 			const { userInputText } = action.payload as IPayloadUserInputText;
 			return { ...state, userInputText };
-
-		case STANDARD_REPLACER_CHANGE_ACTIVE:
-			const {
-				id: payloadStandardReplacersChangeActiveId,
-			} = action.payload as IPayloadStandardReplacerChangeActive;
+		}
+		case STANDARD_REPLACER_CHANGE_ACTIVE: {
+			const { id: payloadStandardReplacersChangeActiveId } =
+				action.payload as IPayloadStandardReplacerChangeActive;
 			const standardReplacersWithChangedActive = state.standardReplacers.map(
-				replacer => {
+				(replacer) => {
 					if (payloadStandardReplacersChangeActiveId === replacer.id) {
 						return {
 							...replacer,
@@ -61,12 +60,12 @@ export function textReplacerReducer(
 				...state,
 				standardReplacers: standardReplacersWithChangedActive,
 			};
-		case CUSTOM_REPLACER_CHANGE_ACTIVE:
-			const {
-				id: payloadCustomReplacerChangeActiveId,
-			} = action.payload as IPayloadCustomReplacerChangeActive;
+		}
+		case CUSTOM_REPLACER_CHANGE_ACTIVE: {
+			const { id: payloadCustomReplacerChangeActiveId } =
+				action.payload as IPayloadCustomReplacerChangeActive;
 			const customReplacersWithChangedActive = state.customReplacers.map(
-				replacer => {
+				(replacer) => {
 					if (payloadCustomReplacerChangeActiveId === replacer.id) {
 						return {
 							...replacer,
@@ -79,18 +78,19 @@ export function textReplacerReducer(
 			);
 
 			return { ...state, customReplacers: customReplacersWithChangedActive };
-
-		case CUSTOM_REPLACER_REMOVE:
-			const {
-				id: payloadCustomReplacerToRemoveId,
-			} = action.payload as IPayloadCustomReplacerToRemove;
-			const customReplacersWithoutRemoved = state.customReplacers.filter(el => {
-				return el.id !== payloadCustomReplacerToRemoveId;
-			});
+		}
+		case CUSTOM_REPLACER_REMOVE: {
+			const { id: payloadCustomReplacerToRemoveId } =
+				action.payload as IPayloadCustomReplacerToRemove;
+			const customReplacersWithoutRemoved = state.customReplacers.filter(
+				(el) => {
+					return el.id !== payloadCustomReplacerToRemoveId;
+				}
+			);
 
 			return { ...state, customReplacers: customReplacersWithoutRemoved };
-
-		case CUSTOM_REPLACER_CREATE:
+		}
+		case CUSTOM_REPLACER_CREATE: {
 			const customReplacerNewId =
 				(_.maxBy(state.customReplacers, 'id')?.id ?? 0) + 1;
 			const customReplacerDescription = `Custom #${customReplacerNewId}`;
@@ -110,8 +110,8 @@ export function textReplacerReducer(
 				...state,
 				customReplacers: [...state.customReplacers, customReplacersNew],
 			};
-
-		case CUSTOM_REPLACER_CHANGE_DATA:
+		}
+		case CUSTOM_REPLACER_CHANGE_DATA: {
 			const {
 				id: customReplacerChangeDataFieldId,
 				fieldName: customReplacerChangeDataFieldName,
@@ -136,11 +136,12 @@ export function textReplacerReducer(
 				);
 			}
 			const customReplacersWithChangedData = state.customReplacers.map(
-				replacer => {
+				(replacer) => {
 					if (customReplacerChangeDataFieldId === replacer.id) {
 						return {
 							...replacer,
-							[customReplacerChangeDataFieldName]: customReplacerChangeDataFieldValue,
+							[customReplacerChangeDataFieldName]:
+								customReplacerChangeDataFieldValue,
 						};
 					}
 
@@ -149,8 +150,8 @@ export function textReplacerReducer(
 			);
 
 			return { ...state, customReplacers: customReplacersWithChangedData };
-
-		case PROCESS_TEXT:
+		}
+		case PROCESS_TEXT: {
 			if (state.userInputText === '') return { ...state, processedText: '' };
 
 			const processedText = applyReplacersOnText(state);
@@ -159,13 +160,16 @@ export function textReplacerReducer(
 				...state,
 				processedText,
 			};
-		case SET_SHOW_COPY_TO_CLIPBOARD_ALERT:
+		}
+		case SET_SHOW_COPY_TO_CLIPBOARD_ALERT: {
 			const { showAlert } = action.payload as IPayloadShowCopyToClipboardAlert;
 			return {
 				...state,
 				showCopyToClipboardAlert: showAlert,
 			};
-		default:
+		}
+		default: {
 			return state;
+		}
 	}
 }

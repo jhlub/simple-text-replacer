@@ -11,7 +11,7 @@ import { OptionBoxCustomContainer } from './elements/OptionBoxCustomContainer';
 
 export const TextOptions: React.FC = () => {
 	const {
-		state: { standardReplacers, processedText, autoCopyText, autoProcessText },
+		state: { standardReplacers, autoCopyText, autoProcessText },
 		dispatch: textReplacerContextDispatch,
 		processText,
 		copyProcessedText,
@@ -20,7 +20,7 @@ export const TextOptions: React.FC = () => {
 	const renderOptionBoxes = (): JSX.Element[] => {
 		const optionBoxes: JSX.Element[] = [];
 
-		standardReplacers.forEach(filterObject => {
+		standardReplacers.forEach((filterObject) => {
 			optionBoxes.push(
 				<OptionBox key={filterObject.id} filterObject={filterObject} />
 			);

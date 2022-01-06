@@ -1,4 +1,4 @@
-import React, { RefAttributes, RefObject } from 'react';
+import React from 'react';
 
 type PropsType = {
 	title: string;

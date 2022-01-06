@@ -1,5 +1,7 @@
 export enum ReplacerConfigSourceType {
+	// eslint-disable-next-line no-unused-vars
 	Standard,
+	// eslint-disable-next-line no-unused-vars
 	Custom,
 }
 

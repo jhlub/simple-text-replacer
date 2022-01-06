@@ -13,7 +13,7 @@ export const applyReplacerOnText = (
 
 	let j = true;
 	while (j === true) {
-		let index = modifiedText.search(filterConf.from);
+		const index = modifiedText.search(filterConf.from);
 		if (index !== -1) {
 			if (
 				typeof filterConf.from === 'string' &&
@@ -23,7 +23,7 @@ export const applyReplacerOnText = (
 			}
 			if (filterConf.from instanceof RegExp) {
 				let appendFixIndex = 0;
-				let prependFixIndex = 0;
+				const prependFixIndex = 0;
 				// Hardcoded changes!
 				if (filterConf.source === ReplacerConfigSourceType.Standard) {
 					switch (filterConf.name) {
@@ -56,7 +56,7 @@ export const applyReplacersOnText = ({
 	let modifiedText = userInputText;
 	const filtersConf = [...standardReplacers, ...customReplacers];
 
-	filtersConf.forEach(filterConf => {
+	filtersConf.forEach((filterConf) => {
 		if (filterConf.active) {
 			modifiedText = applyReplacerOnText(modifiedText, filterConf);
 		}
